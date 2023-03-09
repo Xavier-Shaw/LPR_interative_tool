@@ -1,0 +1,260 @@
+[
+  {
+    "userName": "Amy",
+    "userId": 1,
+    "concernData": [
+      {
+        "content": "Invasive monitoring",
+        "level": "2",
+        "comment": "Likely to be comfortable. I feel uncomfortable because I gave this information thinking that it would be used by the retail store. I feel uncomfortable because I gave this information thinking that it would be used by the retail store."
+      },
+      {
+        "content": "Violation of expectations",
+        "level": "3",
+        "comment": ""
+      },
+      {
+        "content": "Lack of respect for autonomy",
+        "level": "4",
+        "comment": ""
+      },
+      {
+        "content": "Lack of informed consent",
+        "level": "2",
+        "comment": ""
+      },
+      {
+        "content": "Deceptive data practice",
+        "level": "5",
+        "comment": "Uncomfortable"
+      },
+      {
+        "content": "Lack of protection for vulnerable population",
+        "level": "3",
+        "comment": ""
+      },
+      {
+        "content": "Lack of alternative choice",
+        "level": "2",
+        "comment": ""
+      },
+      {
+        "content": "Insufficient data security",
+        "level": "4",
+        "comment": "OK"
+      },
+      {
+        "content": "Insufficient anonymization",
+        "level": "1",
+        "comment": ""
+      },
+      {
+        "content": "Too high potential risks",
+        "level": "3",
+        "comment": "Hello"
+      },
+      {
+        "content": "Bias or discrimination",
+        "level": 0,
+        "comment": ""
+      },
+      {
+        "content": "Lack of trust for algorithms",
+        "level": 0,
+        "comment": ""
+      },
+      {
+        "content": "Lack of control of personal data",
+        "level": 0,
+        "comment": ""
+      },
+      {
+        "content": "Data commodification",
+        "level": 0,
+        "comment": ""
+      },
+      {
+        "content": "Unclassified",
+        "level": "2",
+        "comment": ""
+      },
+      {
+        "content": "No privacy concern",
+        "level": "5",
+        "comment": ""
+      }
+    ]
+  },
+  {
+    "userName": "Carl",
+    "userId": 2,
+    "concernData": [
+      {
+        "content": "Invasive monitoring",
+        "level": "3",
+        "comment": ""
+      },
+      {
+        "content": "Violation of expectations",
+        "level": "5",
+        "comment": ""
+      },
+      {
+        "content": "Lack of respect for autonomy",
+        "level": "1",
+        "comment": ""
+      },
+      {
+        "content": "Lack of informed consent",
+        "level": "4",
+        "comment": ""
+      },
+      {
+        "content": "Deceptive data practice",
+        "level": 0,
+        "comment": ""
+      },
+      {
+        "content": "Lack of protection for vulnerable population",
+        "level": 0,
+        "comment": ""
+      },
+      {
+        "content": "Lack of alternative choice",
+        "level": "4",
+        "comment": ""
+      },
+      {
+        "content": "Insufficient data security",
+        "level": 0,
+        "comment": ""
+      },
+      {
+        "content": "Insufficient anonymization",
+        "level": "1",
+        "comment": ""
+      },
+      {
+        "content": "Too high potential risks",
+        "level": 0,
+        "comment": "Feels great"
+      },
+      {
+        "content": "Bias or discrimination",
+        "level": 0,
+        "comment": ""
+      },
+      {
+        "content": "Lack of trust for algorithms",
+        "level": 0,
+        "comment": ""
+      },
+      {
+        "content": "Lack of control of personal data",
+        "level": 0,
+        "comment": ""
+      },
+      {
+        "content": "Data commodification",
+        "level": "2",
+        "comment": "OKKK"
+      },
+      {
+        "content": "Unclassified",
+        "level": 0,
+        "comment": ""
+      },
+      {
+        "content": "No privacy concern",
+        "level": "5",
+        "comment": "Hello"
+      }
+    ]
+  },
+  {
+    "userName": "David",
+    "userId": 3,
+    "concernData": [
+      {
+        "content": "Invasive monitoring",
+        "level": "5",
+        "comment": "I feel uncomfortable because I gave this information thinking that it would be used by the retail store. \nI feel uncomfortable because I gave this information thinking that it would be used by the retail store."
+      },
+      {
+        "content": "Violation of expectations",
+        "level": "3",
+        "comment": "I feel uncomfortable because I gave this information thinking that it would be used by the retail store."
+      },
+      {
+        "content": "Lack of respect for autonomy",
+        "level": "1",
+        "comment": ""
+      },
+      {
+        "content": "Lack of informed consent",
+        "level": "4",
+        "comment": "I feel uncomfortable because I gave this information thinking that it would be used by the retail store."
+      },
+      {
+        "content": "Deceptive data practice",
+        "level": 0,
+        "comment": ""
+      },
+      {
+        "content": "Lack of protection for vulnerable population",
+        "level": 0,
+        "comment": ""
+      },
+      {
+        "content": "Lack of alternative choice",
+        "level": "5",
+        "comment": "I feel uncomfortable because I gave this information thinking that it would be used by the retail store."
+      },
+      {
+        "content": "Insufficient data security",
+        "level": 0,
+        "comment": ""
+      },
+      {
+        "content": "Insufficient anonymization",
+        "level": "3",
+        "comment": "I feel uncomfortable because I gave this information thinking that it would be used by the retail store."
+      },
+      {
+        "content": "Too high potential risks",
+        "level": 0,
+        "comment": ""
+      },
+      {
+        "content": "Bias or discrimination",
+        "level": "2",
+        "comment": "I feel uncomfortable because I gave this information thinking that it would be used by the retail store."
+      },
+      {
+        "content": "Lack of trust for algorithms",
+        "level": 0,
+        "comment": ""
+      },
+      {
+        "content": "Lack of control of personal data",
+        "level": 0,
+        "comment": ""
+      },
+      {
+        "content": "Data commodification",
+        "level": "5",
+        "comment": "I feel uncomfortable because I gave this information thinking that it would be used by the retail store."
+      },
+      {
+        "content": "Unclassified",
+        "level": 0,
+        "comment": ""
+      },
+      {
+        "content": "No privacy concern",
+        "level": "2",
+        "comment": "I feel uncomfortable because I gave this information thinking that it would be used by the retail store."
+      }
+    ]
+  }
+]

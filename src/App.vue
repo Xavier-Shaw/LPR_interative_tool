@@ -1,15 +1,14 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <privacy-review></privacy-review>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import PrivacyReview from "@/components/privacyReview";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    PrivacyReview
   }
 }
 </script>
