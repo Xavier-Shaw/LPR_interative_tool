@@ -4,19 +4,213 @@
     <meta charset="UTF-8">
     <title>LPR Grid Chart</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/d3@7/+esm"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
-    <div>
-        <button id="myButton">Click me!</button>
+<div style="margin: 50px">
+    <div style="margin-left: 100px">
+        <button id="loadDataBtn">Load Data From "data.json"</button>
+        <button id="generateGridBtn">Generate Grid Chart</button>
+        <button id="resetBtn">Reset</button>
+        <button id="showNextBtn">Show Next Group</button>
+
+        <div style="margin: 30px">
+            <span>Group Size: </span>
+            <input type="number" min="1" max="10" id="groupSize">
+            <span>   (Please press "Reset" after you change the group size)</span>
+            <p id="showRange"></p>
+        </div>
     </div>
+
+    <div id="gridDiv" style="margin-top: 30px; margin-left: 100px">
+        <h2 style="margin-left: 250px">Privacy Concerns From Different Users</h2>
+        <svg id="colorGradient"></svg>
+        <br>
+        <svg id="gridChart"></svg>
+    </div>
+</div>
 </body>
 </html>
 
 <script>
-    function handleClick() {
-        console.log("Button clicked!");
+    const privacyConcerns = ["Invasive monitoring", "Violation of expectations", "Lack of respect for autonomy", "Lack of informed consent", "Deceptive data practice", "Lack of protection for vulnerable population", "Lack of alternative choice", "Insufficient data security", "Insufficient anonymization", "Too high potential risks", "Bias or discrimination", "Lack of trust for algorithms", "Lack of control of personal data", "Data commodification", "Unclassified", "No privacy concern"]
+    let concernData = [];
+    let concernLevel = 0;
+    let concernComment = "";
+    let colorArray = ['#FFFFFF', '#aac4de', '#99bd96', '#d2cdac', '#85634e', '#2c2019'];
+    let userId = 0;
+    let userConcernsData = [];
+    let userNames = [];
+    let gridSize = 35;
+    let startUserId = 0;
+    let endUserId = 0;
+    let groupSize = 3;
+
+    for (const concern of privacyConcerns) {
+        concernData.push({content: concern, level: concernLevel, comment: concernComment});
     }
 
-    document.getElementById("myButton").addEventListener("click", handleClick);
+    function showRangeText() {
+        d3.select("#showRange")
+            .text("Data below is from user #" + (startUserId + 1) + " to user #" + endUserId + "  (Group Size = " + groupSize + ")")
+    }
+
+    function generateColorGradient() {
+        let colors = ['#aac4de', '#99bd96', '#d2cdac', '#85634e', '#2c2019']
+
+        let svg = d3.select('#colorGradient')
+            .style("margin-left", 180)
+            .attr('width', 650)
+            .attr('height', 60);
+
+        let grad = svg.append('defs')
+            .append('linearGradient')
+            .attr('id', 'grad')
+            .attr('x1', '0%')
+            .attr('x2', '100%')
+            .attr('y1', '0%')
+            .attr('y2', '0%');
+
+        grad.selectAll('stop')
+            .data(colors)
+            .enter()
+            .append('stop')
+            .style('stop-color', function (d) {
+                return d;
+            })
+            .attr('offset', function (d, i) {
+                return 100 * (i / (colors.length - 1)) + '%';
+            })
+
+        svg.append('rect')
+            .attr('x', 60)
+            .attr('y', 20)
+            .attr('width', 550)
+            .attr('height', 25)
+            .style('fill', 'url(#grad)');
+
+        svg.append('text')
+            .attr('x', 0)
+            .attr('y', 15)
+            .text('Most Comfortable')
+
+        svg.append('text')
+            .attr('x', 500)
+            .attr('y', 15)
+            .text('Most Uncomfortable')
+    }
+
+    function clearGridChart() {
+        d3.select("#gridChart").selectAll('*').remove()
+        d3.select("#showRange").text(" ")
+    }
+
+    function reset() {
+        clearGridChart()
+        startUserId = 0
+        endUserId = Math.min(groupSize, userConcernsData.length)
+    }
+
+    function showNextGroup() {
+        clearGridChart()
+        if (endUserId !== userConcernsData.length) {
+            startUserId = endUserId
+            endUserId = Math.min(startUserId + groupSize, userConcernsData.length)
+        }
+        generateGridChart()
+    }
+
+    async function loadDataFromFile() {
+        const response = await fetch("data.json");
+        const text = await response.text();
+        userConcernsData = await JSON.parse(text);
+        for (const data of userConcernsData) {
+            userNames.push(data.userName)
+        }
+        userId = userConcernsData.length
+        startUserId = 0
+        endUserId = Math.min(groupSize, userConcernsData.length)
+        generateColorGradient()
+        console.log(userConcernsData)
+    }
+
+    function generateGridChart() {
+        showRangeText()
+
+        let textWidth = 250
+        let padding = 30
+        let width = gridSize * 20 + textWidth
+        let height = gridSize * (privacyConcerns.length + 3) + padding
+
+        let svg = d3.select("#gridChart")
+            .attr("width", width)
+            .attr("height", height)
+
+        // Define the data for the grid
+        const data = userConcernsData.slice(startUserId, endUserId);
+        const data_names = userNames.slice(startUserId, endUserId);
+
+        const xScale = d3.scaleBand()
+            .domain(data_names)
+            .range([textWidth, width])
+            .padding(0.1);
+
+        const yScale = d3.scaleBand()
+            .domain(privacyConcerns)
+            .range([0, height - padding])
+            .padding(0.1)
+
+        const xAxisTransform = `translate(0, ${height - padding})`
+        const yAxisTransform = `translate(${textWidth}, 0)`
+        // const gridTransform = `translate(${textWidth}, ${height - padding}`
+
+        const xAxis = d3.axisBottom(xScale)
+        svg.append("g")
+            .attr("transform", xAxisTransform)
+            .call(xAxis);
+
+        const yAxis = d3.axisLeft(yScale)
+        svg.append("g")
+            .attr("transform", yAxisTransform)
+            .call(yAxis)
+
+        for (const userData of data) {
+            // const userId = userData.userId
+            const concernData = userData.concernData
+
+            const gridGroup = svg.append("g").attr("id", userData.userName);
+
+            gridGroup.selectAll("g")
+                .data(concernData)
+                .enter().append("rect")
+                .attr("class", "grid")
+                .attr("width", xScale.bandwidth)
+                .attr("height", yScale.bandwidth)
+                .attr("x", xScale(userData.userName))
+                .attr("y", (d) => yScale(d.content))
+                // .attr("transform", gridTransform)
+                .attr('fill', (d) => {
+                    return colorArray[d.level % 6]
+                })
+                .append('title')
+                .text((d) => d.comment)
+        }
+    }
+
+    document.getElementById("groupSize").value = groupSize;
+    document.getElementById("groupSize").oninput = function () {
+        groupSize = this.value
+    }
+    document.getElementById("loadDataBtn").addEventListener("click", loadDataFromFile);
+    document.getElementById("generateGridBtn").addEventListener("click", generateGridChart)
+    document.getElementById("resetBtn").addEventListener("click", reset)
+    document.getElementById("showNextBtn").addEventListener("click", showNextGroup)
+
 </script>
+
+<style>
+    button {
+        width: 300px;
+        height: 50px;
+    }
+</style>
