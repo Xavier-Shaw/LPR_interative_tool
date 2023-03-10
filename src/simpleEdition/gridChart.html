@@ -18,7 +18,7 @@
             <span>Group Size: </span>
             <input type="number" min="1" max="10" id="groupSize">
             <span>   (Please press "Reset" after you change the group size)</span>
-            <p id="showRange"></p>
+            <h4 id="showRange"></h4>
         </div>
     </div>
 
@@ -44,7 +44,7 @@
     let gridSize = 35;
     let startUserId = 0;
     let endUserId = 0;
-    let groupSize = 3;
+    let groupSize = 10;
 
     for (const concern of privacyConcerns) {
         concernData.push({content: concern, level: concernLevel, comment: concernComment});
@@ -52,7 +52,7 @@
 
     function showRangeText() {
         d3.select("#showRange")
-            .text("Data below is from user #" + (startUserId + 1) + " to user #" + endUserId + "  (Group Size = " + groupSize + ")")
+            .text("Data below is from user #" + (startUserId + 1) + " to user #" + endUserId + "  (" + userConcernsData.length + " users in total)")
     }
 
     function generateColorGradient() {

@@ -48,13 +48,17 @@
     <el-button type="primary" @click="submitForm">Submit the Form</el-button>
     <el-button type="primary" @click="generateGridChart">Generate Grid Chart</el-button>
     <el-button type="primary" @click="reset">Reset</el-button>
-    <p>Data below is from user #{{startUserId + 1}} to user #{{endUserId}}</p>
-    <span>Group Size: </span>
-    <el-input-number style="width: 100px; margin-right: 30px" :precision="0" :min="1" :max="10" v-model="groupSize"></el-input-number>
-    <el-button type="primary" @click="showNextGroup">Show Next Group of Users</el-button>
+    <div style="margin-top: 20px">
+      <span>Group Size: </span>
+      <el-input-number style="width: 100px; margin-right: 30px" :precision="0" :min="1" :max="10" v-model="groupSize"></el-input-number>
+      <p>(Please press "Reset" after you change the group size)</p>
+      <h4>Data below is from user #{{startUserId + 1}} to user #{{endUserId}} ({{userConcernsData.length}} users in total)</h4>
+      <el-button type="primary" @click="showNextGroup">Show Next Group of Users</el-button>
+    </div>
+
   </div>
 
-  <div id="gridDiv" style="width: 90%; margin-top: 100px">
+  <div id="gridDiv" style="width: 90%; margin-top: 50px">
     <h2 style="margin-left: 150px">Privacy Concerns From Different Users</h2>
 
     <svg id="colorGradient"></svg>
@@ -95,7 +99,7 @@ export default {
       color: '#2c2019',
       startUserId: 0,
       endUserId: 0,
-      groupSize: 2
+      groupSize: 10
     }
   },
 
