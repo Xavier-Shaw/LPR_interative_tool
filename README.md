@@ -1,7 +1,7 @@
-# lean_privacy_review
+# Lean Privacy Review
 
 ## How to use it
-There are two ways to use the tool.
+Download the code and there are two ways to use the tool.
 
 #### Vue Version (Add data and Show data)
 1. Indicate your concerns with scores and reasons in the form
