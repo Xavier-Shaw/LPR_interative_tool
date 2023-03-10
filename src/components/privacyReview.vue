@@ -47,6 +47,11 @@
 
     <el-button type="primary" @click="submitForm">Submit the Form</el-button>
     <el-button type="primary" @click="generateGridChart">Generate Grid Chart</el-button>
+    <el-button type="primary" @click="reset">Reset</el-button>
+    <p>Data below is from user #{{startUserId + 1}} to user #{{endUserId}}</p>
+    <span>Group Size: </span>
+    <el-input-number style="width: 100px; margin-right: 30px" :precision="0" :min="1" :max="10" v-model="groupSize"></el-input-number>
+    <el-button type="primary" @click="showNextGroup">Show Next Group of Users</el-button>
   </div>
 
   <div id="gridDiv" style="width: 90%; margin-top: 100px">
@@ -87,7 +92,10 @@ export default {
       userNames: [],
       gridSize: 35,
       colorArray: ['#FFFFFF' , '#aac4de', '#99bd96', '#d2cdac', '#85634e', '#2c2019'],
-      color: '#2c2019'
+      color: '#2c2019',
+      startUserId: 0,
+      endUserId: 0,
+      groupSize: 2
     }
   },
 
@@ -105,7 +113,6 @@ export default {
       }
 
       this.saveDataToFile()
-      d3.select("#gridChart").selectAll('*').remove()
     },
 
     generateColorGradient() {
@@ -151,6 +158,25 @@ export default {
           .text('Most Uncomfortable')
     },
 
+    clearGridChart() {
+      d3.select("#gridChart").selectAll('*').remove()
+    },
+
+    reset() {
+      this.clearGridChart()
+      this.startUserId = 0
+      this.endUserId = Math.min(this.groupSize, this.userConcernsData.length)
+    },
+
+    showNextGroup() {
+      this.clearGridChart()
+      if (this.endUserId !== this.userConcernsData.length) {
+        this.startUserId = this.endUserId
+        this.endUserId = Math.min(this.startUserId + this.groupSize, this.userConcernsData.length)
+      }
+      this.generateGridChart()
+    },
+
     generateGridChart() {
       let textWidth = 250
       let padding = 30
@@ -160,11 +186,13 @@ export default {
       let svg = d3.select("#gridChart")
           .attr("width", width)
           .attr("height", height)
+
       // Define the data for the grid
-      const data = this.userConcernsData;
+      const data = this.userConcernsData.slice(this.startUserId, this.endUserId);
+      const data_names = this.userNames.slice(this.startUserId, this.endUserId);
 
       const xScale = d3.scaleBand()
-          .domain(this.userNames)
+          .domain(data_names)
           .range([textWidth, width])
           .padding(0.1);
 
@@ -175,7 +203,7 @@ export default {
 
       const xAxisTransform = `translate(0, ${height - padding})`
       const yAxisTransform = `translate(${textWidth}, 0)`
-      const gridTransform = `translate(${textWidth}, ${height - padding}`
+      // const gridTransform = `translate(${textWidth}, ${height - padding}`
 
       const xAxis = d3.axisBottom(xScale)
       svg.append("g")
@@ -203,7 +231,7 @@ export default {
             .attr("height", yScale.bandwidth)
             .attr("x", xScale(userData.userName))
             .attr("y", (d) => yScale(d.content))
-            .attr("transform", gridTransform)
+            // .attr("transform", gridTransform)
             .attr('fill', (d) => {
               return this.colorArray[d.level % 6]
             })
@@ -245,8 +273,9 @@ export default {
         this.userNames.push(data.userName)
       }
       this.userId = this.userConcernsData.length
+      this.startUserId = 0
+      this.endUserId = Math.min(this.groupSize, this.userConcernsData.length)
       console.log(this.userConcernsData)
-      // console.log(this.userConcernsData[0])
     },
   },
 
